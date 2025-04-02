@@ -16,10 +16,22 @@ public class SDP {
 		UserBalance userBalance = manger.getUserBalance(MSISDN);
 		return (userBalance!=null);
 	}
-	public UserBalance deductBalance(String MSISDN) {
+	public double deductBalance(String MSISDN) {
 		UserBalanceManager manger = new UserBalanceManager();
 		UserBalance userBalance = manger.updateUserBalance(MSISDN, -5);
-		return userBalance;
+		if (userBalance!=null)
+		return userBalance.getBalance();
+		else 
+			return -1;
+	}
+	
+	public double getBalance(String MSISDN) {
+		UserBalanceManager manger = new UserBalanceManager();
+		UserBalance userBalance = manger.getUserBalance(MSISDN);
+		if (userBalance!=null)
+		return userBalance.getBalance();
+		else 
+			return -1;
 	}
 	public UserBalance deductBalance(String MSISDN,double charge,int time) {
 		

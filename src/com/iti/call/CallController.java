@@ -1,12 +1,16 @@
 package com.iti.call;
 
 import com.iti.audio.AudioHandler;
+import com.iti.audio.SampledAudioHandler;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+
+import javax.sound.sampled.AudioFormat;
 
 public class CallController {
     private static final int BUFFER_SIZE = 4096;
@@ -19,9 +23,10 @@ public class CallController {
 
     }
     
-    public CallController(int port, AudioHandler voiceHandler) throws SocketException {
+    public CallController(int port) throws SocketException {
+    	
         this.socket = new DatagramSocket(port);
-        this.voiceHandler = voiceHandler;
+        this.voiceHandler =  new SampledAudioHandler(new AudioFormat(16000, 16, 1, true, true));
         this.active = false;
     }
     

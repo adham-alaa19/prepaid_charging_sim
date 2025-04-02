@@ -27,12 +27,16 @@ public class CallDetailsRecord {
     
     public CallDetailsRecord(String MSISDN) {
     	 this.MSISDN = MSISDN;
+      	 this.callStartTime = Instant.now();
 }
     
     public CallDetailsRecord(String MSISDN,String billingStatus) {
    	 this.MSISDN = MSISDN;
+   	 this.callStartTime = Instant.now();
    	 this.billingStatus = billingStatus;
 }
+    
+ 
 
     // Getters and setters
     public String getMSISDN() {
@@ -98,6 +102,11 @@ public class CallDetailsRecord {
     public void setBalanceAfter(double balanceAfter) {
         this.balanceAfter = balanceAfter;
     }
+    
+    
+    public double getCost() {
+        return balanceBefore - balanceAfter;
+    }
 
     public long getCallDuration() {
         if (callStartTime == null || callEndTime == null) {
@@ -125,6 +134,13 @@ public class CallDetailsRecord {
 
     @Override
     public String toString() {
+        String cdr = "{"+  MSISDN +  "," + callStartTime + "," + callEndTime + "," + getDurationString() + ","
+                + callType + "," + billingStatus + "," + getCost() + "," + balanceAfter+ "}";
+        return cdr;
+    }
+    
+    
+    public String toString2() {
         String cdr = "{"+  MSISDN + "," + destinationNumber + "," + callStartTime + "," + callEndTime + "," + getDurationString() + ","
                 + callType + "," + billingStatus + "," + balanceBefore + "," + balanceAfter+ "}";
         return cdr;
